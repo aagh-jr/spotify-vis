@@ -1,0 +1,189 @@
+/* ── Detail view ───────────────────────────────────────────────────────────
+   Ported from the Claude Design `Detail.dc.html`. */
+
+.dt {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 20% 50%, #0d1a0f 0%, #080810 60%);
+  color: #e8e8e8;
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 24px;
+  gap: 16px;
+}
+
+/* Header */
+.dt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+.dt-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dt-back {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.dt-back:hover {
+  color: #e8e8e8;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.dt-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dt-brand-mark {
+  color: #1db954;
+  font-size: 18px;
+}
+
+.dt-brand-name {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.dt-type {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Metric cards */
+.dt-metrics {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.dt-metric {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.dt-metric-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.dt-metric-value {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #e8e8e8;
+  margin-bottom: 4px;
+}
+
+.dt-metric-value.accent {
+  color: #1db954;
+}
+
+.dt-metric-sub {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Chart card */
+.dt-chart-card {
+  flex: 1;
+  min-height: 0;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px 28px 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dt-chart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+
+.dt-chart-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.dt-chart-sub {
+  font-size: 11px;
+  color: #555;
+  margin-top: 3px;
+}
+
+.dt-tabgroup {
+  display: flex;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 3px;
+  flex-wrap: wrap;
+}
+
+.dt-tab {
+  padding: 4px 11px;
+  border-radius: 15px;
+  font-size: 11px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+  color: #666;
+  font-weight: 500;
+}
+
+.dt-tab:hover {
+  color: #e8e8e8;
+}
+
+.dt-tab.is-active {
+  background: #1db954;
+  color: #000;
+  font-weight: 700;
+}
+
+.dt-chart-body {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
