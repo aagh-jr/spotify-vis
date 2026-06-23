@@ -35,7 +35,7 @@ html, body, #root {
 
 body {
   font-family: var(--font);
-  background: var(--bg);
+  background: radial-gradient(ellipse at 20% 50%, #0d1a0f 0%, #080810 60%);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }

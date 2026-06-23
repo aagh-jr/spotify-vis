@@ -1,0 +1,116 @@
+.import-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 24px;
+  background: radial-gradient(ellipse at 20% 50%, #0d1a0f 0%, #080810 60%);
+}
+
+.import-card {
+  width: 100%;
+  max-width: 540px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px 40px 32px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.import-card.is-dragging {
+  border-color: rgba(29, 185, 84, 0.6);
+  background: rgba(29, 185, 84, 0.06);
+}
+
+.import-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.import-title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f0f0f0;
+  margin-bottom: 12px;
+}
+
+.import-sub {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 440px;
+  margin: 0 auto 28px;
+}
+
+.import-sub strong { color: #d8d8d8; font-weight: 600; }
+.import-sub code {
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: var(--accent);
+}
+
+.import-drop {
+  border: 1.5px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 28px 20px;
+  margin-bottom: 22px;
+  pointer-events: none;
+}
+
+.import-drop-icon { font-size: 32px; margin-bottom: 8px; }
+.import-drop-text { font-size: 13px; color: var(--text-dim); font-weight: 500; }
+
+.import-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.import-btn {
+  padding: 11px 22px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.12s ease, opacity 0.15s ease, background 0.15s ease;
+}
+.import-btn:disabled { opacity: 0.6; cursor: default; }
+.import-btn:not(:disabled):active { transform: scale(0.97); }
+
+.import-btn-primary { background: var(--accent); color: #000; }
+.import-btn-primary:not(:disabled):hover { background: #1ed760; }
+
+.import-btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.import-btn-ghost:not(:disabled):hover { color: #e8e8e8; background: rgba(255, 255, 255, 0.06); }
+
+.import-error {
+  color: #FF6B6B;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.import-hint {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.import-hint span { color: #777; }

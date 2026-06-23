@@ -1,34 +1,52 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { Controls }  from '../src/components/Controls.jsx'
-import { Sidebar }   from '../src/components/Sidebar.jsx'
-import { BumpChart } from '../src/components/BumpChart.jsx'
+import { Controls }     from '../src/components/Controls.jsx'
+import { Sidebar }      from '../src/components/Sidebar.jsx'
+import { BumpChart }    from '../src/components/BumpChart.jsx'
+import { ImportScreen } from '../src/components/ImportScreen.jsx'
 import { getChartData } from '../src/utils/chartData.js'
 import '../src/App.css'
 
-export default function Page() {
-  // ── Remote data ──────────────────────────────────────────────────────────
-  const [data, setData]       = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError]     = useState(null)
+const STORAGE_KEY = 'spotifyProcessedData'
 
-  useEffect(() => {
-    fetch('/data.json')
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`)
-        return r.json()
-      })
-      .then((d) => { setData(d); setLoading(false) })
-      .catch((e) => { setError(e.message); setLoading(false) })
-  }, [])
+export default function Page() {
+  // ── Imported dataset (null until the user imports their history) ──────────
+  const [data, setData]       = useState(null)
+  const [hydrated, setHydrated] = useState(false)
 
   // ── UI state ──────────────────────────────────────────────────────────────
   const [category,     setCategory]     = useState('artists')
   const [periodType,   setPeriodType]   = useState('allTime')
-  const [selectedYear, setSelectedYear] = useState('2024')
+  const [selectedYear, setSelectedYear] = useState('')
   const [topN,         setTopN]         = useState(5)
   const [hoveredName,  setHoveredName]  = useState(null)
+
+  // Restore a previously imported dataset from localStorage on mount.
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY)
+      if (stored) setData(JSON.parse(stored))
+    } catch { /* ignore corrupt cache */ }
+    setHydrated(true)
+  }, [])
+
+  // Keep the selected year valid for the active dataset.
+  useEffect(() => {
+    const years = data?.meta?.years
+    if (years?.length) setSelectedYear(years[years.length - 1])
+  }, [data])
+
+  function handleImport(processed) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(processed)) } catch { /* quota */ }
+    setData(processed)
+    setPeriodType('allTime')
+    setCategory('artists')
+  }
+
+  function clearData() {
+    setData(null)
+  }
 
   // ── Derived chart data ────────────────────────────────────────────────────
   const { periods, series } = useMemo(
@@ -36,28 +54,22 @@ export default function Page() {
     [data, category, periodType, selectedYear, topN]
   )
 
-  const years = data?.meta?.years ?? []
-
-  // ── Render ─────────────────────────────────────────────────────────────────
-  if (loading) {
+  // Avoid a hydration flash before localStorage is read.
+  if (!hydrated) {
     return (
       <div className="app-loading">
         <div className="loading-spinner" />
-        <p>Loading your listening history…</p>
       </div>
     )
   }
 
-  if (error) {
-    return (
-      <div className="app-loading">
-        <p className="app-error">Failed to load data: {error}</p>
-        <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 8 }}>
-          Make sure you ran <code>python3 scripts/process_data.py</code> first.
-        </p>
-      </div>
-    )
+  // No data yet → the import screen is the entry point.
+  if (!data) {
+    return <ImportScreen onData={handleImport} />
   }
+
+  const years = data.meta.years ?? []
+  const yearRange = years.length ? `${years[0]} – ${years[years.length - 1]}` : ''
 
   return (
     <div className="app">
@@ -67,8 +79,11 @@ export default function Page() {
           <span className="logo-mark">▶</span>
           <span className="logo-text">Spotify Visualizer</span>
         </div>
-        <div className="app-subtitle">
-          {data.meta.totalPlays.toLocaleString()} plays · 2017 – 2024
+        <div className="app-header-right">
+          <div className="app-subtitle">
+            {data.meta.totalPlays.toLocaleString()} plays{yearRange ? ` · ${yearRange}` : ''}
+          </div>
+          <button className="reimport-btn" onClick={clearData}>↺ Import new data</button>
         </div>
       </header>
 
