@@ -1,0 +1,54 @@
+/* ── CSS Reset & Global Variables ──────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Colors */
+  --bg:          #0d0d0d;
+  --surface:     #181818;
+  --surface2:    #242424;
+  --surface3:    #2e2e2e;
+  --border:      #333;
+  --text:        #e8e8e8;
+  --text-muted:  #888;
+  --text-dim:    #555;
+  --accent:      #1DB954;
+  --accent-dim:  #158a3e;
+
+  /* Typography */
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --sidebar-w: 20%;
+  --radius:    12px;
+  --radius-sm: 8px;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: var(--font);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+select {
+  font-family: var(--font);
+  cursor: pointer;
+  outline: none;
+}
